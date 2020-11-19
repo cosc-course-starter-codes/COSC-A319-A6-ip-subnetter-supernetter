@@ -32,11 +32,14 @@ that, a specific number of contiguous bits on the leftmost side of the
 address (in binary form) are allocated as the network ID, and the
 remainder are allocated to the host ID. This location at which this
 change from bits being allocated to network ID to bits being to the host
-ID is called the network/host boundary. Traditionally, these allocations
-happened at octet boundaries, resulting in network ID lengths of 8, 16,
-or 24 bits, depending on the type of network and its addressing needs.
+ID is called the network/host boundary. Traditionally (in IPv4), these
+allocations happened at octet boundaries, resulting in network ID lengths of
+8, 16, or 24 bits, depending on the type of network and its addressing needs.
 
-### Classful and Classless (CIDR) Addresses
+For this assignment, we'll be focused on IPv4 addresses only, but the
+process of subnetting and supernetting is quite similar for IPv6.
+
+### Classful and Classless (CIDR) IPv4 Addresses
 
 However, the way IPv4 addresses are assigned has changed over time. Early on,
 there were a collection of rules for assigning IPv4 network addresses and
@@ -107,7 +110,9 @@ An `IPv4Address` class that can be instantiated with:
 
 ```{javascript}
   new IPv4Address(
+    /* IPv4 address in binary/unsigned integer format */
     0b00001100_00101110_11010101_00111001,
+    /* IPv4 subnet mask in binary/unsigned integer format */
     0b11111111_11111111_11000000_00000000
   )
 ```
@@ -117,6 +122,7 @@ Instances of the `IPv4Address` class should have properties:
 - `networkID` - binary IP network ID
 - `hostID` - binary IP host ID
 - `prefixLength` - integer network prefix length
+- `subnetMask` - binary IP subnet mask
 - `network` - an `IPNetwork` instance specifying information about the
   IPv4 network to which this address belongs
 
@@ -129,15 +135,25 @@ The `IPv4Address` class should have the following static methods:
   the address and possibly the subnet as follows:
   - ```
     IPv4Address.create(
+      /* IPv4 address in binary/unsigned integer format */
       0b00001100_00101110_11010101_00111001,
+      /* IPv4 subnet mask in binary/unsigned integer format */
       0b11111111_11111111_11000000_00000000
     )
     ```
   - ```
-    IPv4Address.create('12.46.213.57/18')
+    IPv4Address.create(
+      /* IPv4 address in CIDR string format */
+      '12.46.213.57/18'
+    )
     ```
   - ```
-    IPv4Address.create('12.46.213.57', '255.255.192.0')
+    IPv4Address.create(
+      /* IPv4 address on the network in string human-readable format */
+      '12.46.213.57',
+      /* IPv4 subnet mask on the network in string human-readable format */
+      '255.255.192.0'
+    )
     ```
 
 ### The `IPv4Network` class
@@ -146,7 +162,9 @@ The `IPv4Network` class that can be instantiated with:
 
 ```{javascript}
 new IPv4Network(
+  /* IPv4 address on the network in binary/unsigned integer format */
   0b00001100_00101110_11010101_00111001,
+  /* IPv4 subnet mask in binary/unsigned integer format */
   0b11111111_11111111_11000000_00000000
 )
 ```
@@ -178,18 +196,31 @@ Methods on `IPv4Network`:
   address and subnet mask, and creates and returns an `IPv4Network` instance:
   - ```
     IPv4Network.create(
+      /* IPv4 address on the network in binary/unsigned integer format */
       0b00001100_00101110_10001000_00101111,
+      /* IPv4 subnet mask in binary/unsigned integer format */
       0b11111111_11111111_11000000_00000000
     )
     ```
   - ```
-    IPv4Network.create('12.46.128/18')
+    IPv4Network.create(
+      /* IPv4 network address in CIDR string format */
+      '12.46.128/18'
+    )
     ```
   - ```
-    IPv4Network.create('12.46.136.47/18')
+    IPv4Network.create(
+      /* IPv4 address on the network in CIDR string format */
+      '12.46.136.47/18'
+    )
     ```
   - ```
-    IPv4Network.create('12.46.136.47', '255.255.192.0')
+    IPv4Network.create(
+      /* IPv4 network address in string human-readable format */
+      '12.46.136.47',
+      /* IPv4 subnet mask in string human-readable format */
+      '255.255.192.0'
+    )
     ```
 
 ### Program Structure
@@ -205,10 +236,12 @@ include relevant documentation [in JSdoc format](https://jsdoc.app/)
 about why they exist, including expected inputs and outputs with data
 types.
 
-In this repo, you will find an `index.js` file, where you can import
-and re-export any objects or functions your library needs to provide
-as part of its public interface, as well as a `lib` folder, in which
-you can put your files for each class you create and export.
+In this repo, you will find an `index.js` file, where the classes you are
+expected to create are imported and re-exported. You may choose to augment this
+with any other objects or funcitons your library needs to provide as part of
+its public interface, however you should not need to.  You will also find a
+`lib` folder, in which there are two empty JavaScript files -- one for each
+class you will create and export.
 
 #### A note on working with binary in JavaScript
 
