@@ -6,7 +6,7 @@
     "mocha": true
   },
   "parserOptions": {
-    "ecmaVersion": 2018,
+    "ecmaVersion": 2020,
     "sourceType": "module"
   },
   "rules": {
@@ -35,6 +35,7 @@
       "allowTemplateLiterals": true
     }],
     "semi": ["error", "always"],
+    "prefer-numeric-literals": "warn",
     "no-console": "warn",
     "space-before-function-paren": ["error", "always"],
     "padded-blocks": ["error", "never"],
