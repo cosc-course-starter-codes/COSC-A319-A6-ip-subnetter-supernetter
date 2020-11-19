@@ -128,7 +128,7 @@ Instances of the `IPv4Address` class should have properties:
 
 The `IPv4Address` class should have the following static methods:
 
-- `display(<Buffer> address) -> <string>` - to convert binary IPv4 addresses
+- `display(<number> address) -> <string>` - to convert binary IPv4 addresses
   into human-readable ones
 - `create(<number|string> ip4Address, <number|string> subnetMask) -> <IPv4Address>` -
   to create `IPv4Address` objects from either binary or string representations of
