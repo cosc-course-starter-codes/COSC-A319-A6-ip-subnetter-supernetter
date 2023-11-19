@@ -1,4 +1,4 @@
-require ('jest');
+require('jest');
 
 const { IPv4Address, IPv4Network } = require('./index');
 
@@ -47,7 +47,7 @@ describe('IPv4Address', () => {
         expect(() => {
           subject = new IPv4Address(2502595227 >>> 0, '255.255.124.0');
         }).toThrow(
-          'Invalid first argument subnet mask: expected 32-bit unsigned integer value'
+          'Invalid second argument subnet mask: expected 32-bit unsigned integer value'
         );
       });
     });
@@ -153,7 +153,7 @@ describe('IPv4Network', () => {
       expect(() => {
         subject = new IPv4Network(2502595227 >>> 0, '255.255.124.0');
       }).toThrow(
-        'Invalid first argument subnet mask: expected 32-bit unsigned integer value'
+        'Invalid second argument subnet mask: expected 32-bit unsigned integer value'
       );
     });
   });
